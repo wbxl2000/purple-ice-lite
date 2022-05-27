@@ -6,17 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <script src="./contractsABIs/BadgeToken.js" type="application/javascript"></script>
+  <script src="./contractsABIs/NFTMarketplace.js" type="application/javascript"></script>
+  <script src="./base64.js" type="application/javascript"></script>
   <title>purple-ice-lite NFT marketplace</title>
 </head>
 
 <body>
   <div>
     <button id="connectBtn"> connect </button>
-    <span id="address"> 0x未登录</span>
-    <span id="balance"> 0ETH</span>
+    <span id="address"> </span>
+    <span id="balance"> </span>
   </div>
   <div>
     <button id="mint"> mint </button>
+  </div>
+  <div>
+    <button id="FreshMyNFTBtn"> Fresh my NFT </button>
+    <div id="displayMyNFT"></div>
   </div>
 </body>
 
