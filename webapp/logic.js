@@ -49,12 +49,16 @@ async function FreshMyNFT() {
     items.push(parseTokenURI(tokenMetadataURI));
   }
   console.log(items);
-  document.getElementById('displayNFT').innerHTML = items.map(item => `<div style="width: 100px; height: 100px;"> ${item.svg} </div>`);
+  let NFTdiv = "";
+  items.forEach(item => {
+    NFTdiv += `<div style="width: 100px; height: 100px; margin: 3px;"> ${item.svg} </div>`
+  });
+  document.getElementById('displayNFT').innerHTML = NFTdiv;
 };
 
 async function FreshMarketNFT() {
+  const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
   const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
-  console.warn(marketContract, walletAddress);
   let items = [];
   const activeItems = await marketContract.connect(walletAddress).fetchActiveItems();
   for (let i = 0; i < activeItems.length; i++) {
@@ -63,24 +67,33 @@ async function FreshMarketNFT() {
     items.push(parseTokenURI(tokenMetadataURI));
   }
   console.log(items);
-  document.getElementById('displayNFT').innerHTML = items.map(item => `<div style="width: 100px; height: 100px;"> ${item.svg} </div>`);
+  let NFTdiv = "";
+  items.forEach(item => {
+    NFTdiv += `<div style="width: 100px; height: 100px; margin: 3px;"> ${item.svg} </div>`
+  });
+  document.getElementById('displayMarketNFT').innerHTML = NFTdiv;
 };
 
-const display = async () => {
-  signer = provider.getSigner();
+async function sale() {
+  const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
   const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
-  console.warn(marketContract);
-  let items = [];
-  const activeItems = await marketContract.connect(walletAddress).fetchActiveItems();
-  for (let i = 0; i < activeItems.length; i++) {
-    let tokenMetadataURI = await tokenContract.tokenURI(activeItems[i].tokenId)
-    console.log(parseTokenURI(tokenMetadataURI));
-    items.push(parseTokenURI(tokenMetadataURI));
-  }
-  console.log('active', items);
+  const listingFee = await marketContract.getListingFee();
+  const auctionPrice = ethers.utils.parseUnits('1', 'ether')
+  const tokenIdSelected = ethers.BigNumber.from(document.getElementById('saleTokenId').value);
+  await tokenContract.approve(marketAddress, tokenIdSelected);
+  await marketContract.createMarketItem(tokenContractAddress, tokenIdSelected, auctionPrice, { value: listingFee })
+}
+
+async function buy() {
+  const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
+  const tokenIdSelected = ethers.BigNumber.from(document.getElementById('buyTokenId').value);
+  const auctionPrice = ethers.utils.parseUnits('1', 'ether');
+  await marketContract.createMarketSale(tokenContractAddress, tokenIdSelected, { value: auctionPrice })
 }
 
 document.getElementById('connectBtn').addEventListener('click', connectWallet);
 document.getElementById('mint').addEventListener('click', mint);
 document.getElementById('FreshMyNFTBtn').addEventListener('click', FreshMyNFT);
-document.getElementById('FreshMarketNFTBtn').addEventListener('click', display);
+document.getElementById('FreshMarketNFTBtn').addEventListener('click', FreshMarketNFT);
+document.getElementById('sale').addEventListener('click', sale);
+document.getElementById('buy').addEventListener('click', buy);
