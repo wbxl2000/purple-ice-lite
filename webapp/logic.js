@@ -1,5 +1,5 @@
 const tokenContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const marketAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"; // you deploy address
+const marketAddress = "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853";
 
 let walletAddress;
 let balance;
@@ -17,12 +17,12 @@ async function connectWallet() {
 
   balance = ethers.utils.formatEther(originBalance);
   walletAddress = account;
-  document.getElementById('address').innerHTML = walletAddress.substring(0, 5) + "..." + walletAddress.substring(walletAddress.length - 4, walletAddress.length);
+  document.getElementById('address').innerHTML = walletAddress;
   document.getElementById('balance').innerHTML = `${balance.substring(0, 8)} ETH`;
 }
 
 async function mint() {
-  tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
+  const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
   const res = await tokenContract.mintTo(walletAddress);
   console.log(res);
 };
@@ -39,20 +39,48 @@ function parseTokenURI(nftURI) {
 }
 
 async function FreshMyNFT() {
-  tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
-  const b = await tokenContract.balanceOf(walletAddress);
-  console.warn(b);
+  const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
+  const NFTCount = await tokenContract.balanceOf(walletAddress);
   let items = [];
-  for (let i = 0; i < b; i++) {
+  for (let i = 0; i < NFTCount; i++) {
     const tokenId = await tokenContract.tokenOfOwnerByIndex(walletAddress, i);
     let tokenMetadataURI = await tokenContract.tokenURI(tokenId)
     console.log(parseTokenURI(tokenMetadataURI));
     items.push(parseTokenURI(tokenMetadataURI));
   }
   console.log(items);
-  document.getElementById('displayMyNFT').innerHTML = items.map(item => `<div style="width: 100px; height: 100px;"> ${item.svg} </div>`);
+  document.getElementById('displayNFT').innerHTML = items.map(item => `<div style="width: 100px; height: 100px;"> ${item.svg} </div>`);
 };
+
+async function FreshMarketNFT() {
+  const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
+  console.warn(marketContract, walletAddress);
+  let items = [];
+  const activeItems = await marketContract.connect(walletAddress).fetchActiveItems();
+  for (let i = 0; i < activeItems.length; i++) {
+    let tokenMetadataURI = await tokenContract.tokenURI(activeItems[i].tokenId)
+    console.log(parseTokenURI(tokenMetadataURI));
+    items.push(parseTokenURI(tokenMetadataURI));
+  }
+  console.log(items);
+  document.getElementById('displayNFT').innerHTML = items.map(item => `<div style="width: 100px; height: 100px;"> ${item.svg} </div>`);
+};
+
+const display = async () => {
+  signer = provider.getSigner();
+  const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
+  console.warn(marketContract);
+  let items = [];
+  const activeItems = await marketContract.connect(walletAddress).fetchActiveItems();
+  for (let i = 0; i < activeItems.length; i++) {
+    let tokenMetadataURI = await tokenContract.tokenURI(activeItems[i].tokenId)
+    console.log(parseTokenURI(tokenMetadataURI));
+    items.push(parseTokenURI(tokenMetadataURI));
+  }
+  console.log('active', items);
+}
 
 document.getElementById('connectBtn').addEventListener('click', connectWallet);
 document.getElementById('mint').addEventListener('click', mint);
 document.getElementById('FreshMyNFTBtn').addEventListener('click', FreshMyNFT);
+document.getElementById('FreshMarketNFTBtn').addEventListener('click', display);
