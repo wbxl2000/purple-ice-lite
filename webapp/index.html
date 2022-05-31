@@ -5,36 +5,63 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- import ethers -->
   <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <!-- import base64 -->
+  <script src="./base64.js" type="application/javascript"></script>
+  <!-- import contract ABI -->
   <script src="./contractsABIs/BadgeToken.js" type="application/javascript"></script>
   <script src="./contractsABIs/NFTMarketplace.js" type="application/javascript"></script>
-  <script src="./base64.js" type="application/javascript"></script>
   <title>purple-ice-lite NFT marketplace</title>
 </head>
 
 <body>
-  <div>
-    <button id="connectBtn"> connect </button>
-    <span id="address"> </span>
-    <span id="balance" style="color: #d2568c"> </span>
+  <!-- account area -->
+  <div class="">
+    <button id="connect-wallet"> connect wallet </button>
+    <span id="wallet-address"> </span>
+    <span id="wallet-balance"> </span>
   </div>
   <hr>
+  <!-- my NFT area -->
   <div>
     <span>my NFT</span>
-    <button id="FreshMyNFTBtn"> fresh </button>
+    <button id="fresh-my-NFT"> fresh </button>
     <button id="mint"> mint </button>
-    <input id="saleTokenId" /> <button id="sale"> sale </button>
-    <div id="displayNFT" style="display: flex"></div>
+    <input id="sale-tokenId" placeholder="input NFT ID, such as 1" /> <button id="sale"> sale </button>
+    <div id="display-my-NFT" class="display-NFT"></div>
   </div>
   <hr>
+  <!-- market NFT area -->
   <div>
     market NFT
-    <button id="FreshMarketNFTBtn"> fresh </button>
-    <input id="buyTokenId" /> <button id="buy"> buy </button>
-    <div id="displayMarketNFT" style="display: flex"></div>
+    <button id="fresh-market-NFT-balance"> fresh </button>
+    <input id="buy-tokenId" placeholder="input NFT ID, such as 1" /> <button id="buy"> buy </button>
+    <div id="display-market-NFT" class="display-NFT"></div>
   </div>
 </body>
 
 </html>
 
 <script src="./logic.js"></script>
+
+<style>
+  #wallet-balance {
+    color: #d2568c;
+  }
+
+  .NFT-item {
+    margin: 3px;
+    font-size: 12px;
+    color: #666666;
+  }
+
+  .NFT-svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .display-NFT {
+    display: flex;
+  }
+</style>
