@@ -28,15 +28,14 @@
     <span>my NFT</span>
     <button id="fresh-my-NFT"> fresh </button>
     <button id="mint"> mint </button>
-    <input id="sale-tokenId" placeholder="input NFT ID, such as 1" /> <button id="sale"> sale </button>
+    </button>
     <div id="display-my-NFT" class="display-NFT"></div>
   </div>
   <hr>
   <!-- market NFT area -->
   <div>
     market NFT
-    <button id="fresh-market-NFT-balance"> fresh </button>
-    <input id="buy-tokenId" placeholder="input NFT ID, such as 1" /> <button id="buy"> buy </button>
+    <button id="fresh-market-NFT"> fresh </button>
     <div id="display-market-NFT" class="display-NFT"></div>
   </div>
 </body>
@@ -52,7 +51,7 @@
 
   .NFT-item {
     margin: 3px;
-    font-size: 12px;
+    font-size: 14px;
     color: #666666;
   }
 
@@ -63,5 +62,17 @@
 
   .display-NFT {
     display: flex;
+  }
+
+  .NFT-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .NFT-sale-buy {
+    text-decoration: underline blue;
+    cursor: pointer;
+    color: blue;
   }
 </style>

@@ -2,6 +2,9 @@
 
 ## todo
 
-- [ ] 修改 input NFT ID, such as 1 的翻译
-- [ ] disconnect 的提示
-- [ ] 提取 css，不要内联
+- [ ] 记录 contract 改动的地方
+
+## How to run
+    cd chain
+    yarn hardhat node
+    两次 deploy

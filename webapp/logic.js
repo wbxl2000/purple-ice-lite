@@ -1,5 +1,5 @@
 const tokenContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const marketAddress = "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853";
+const marketAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
 let walletAddress;
 let signer;
@@ -28,12 +28,21 @@ function parseTokenURI(nftURI) {
   };
 }
 
-function getNFTDivItems(items) {
+function getNFTDivItems(items, type) {
+  console.log(items);
+  let saleDisplay = '';
+  let buyDisplay = '';
+  type === "sale" ? buyDisplay = "display: none" : saleDisplay = "display: none";
+
   let NFTdiv = "";
   items.forEach(item => {
     NFTdiv += ` <div class="NFT-item"> 
                   <div class="NFT-svg"> ${item.svg} </div> 
-                  <div> ${item.name} </div> 
+                  <div class="NFT-title">
+                    <span> ${item.name} </span> 
+                    <span class="NFT-sale-buy" style="${saleDisplay}" onclick="sale(${item.tokenId})"> sale </span>
+                    <span class="NFT-sale-buy" style="${buyDisplay}" onclick="buy(${item.id})"> buy </span>
+                  </div>
                 </div>`;
   });
   return NFTdiv;
@@ -47,16 +56,16 @@ async function FreshMyNFT() {
   for (let i = 0; i < NFTCount; i++) {
     const tokenId = await tokenContract.tokenOfOwnerByIndex(walletAddress, i);
     const tokenMetadataURI = await tokenContract.tokenURI(tokenId);
-    items.push(parseTokenURI(tokenMetadataURI));
+    items.push({ ...parseTokenURI(tokenMetadataURI), tokenId });
   }
 
-  document.getElementById('display-my-NFT').innerHTML = getNFTDivItems(items);
-};
+  document.getElementById('display-my-NFT').innerHTML = getNFTDivItems(items, 'sale');
+}
 
 async function mint() {
   const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
   const res = await tokenContract.mintTo(walletAddress);
-};
+}
 
 async function FreshMarketNFT() {
   const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
@@ -65,28 +74,27 @@ async function FreshMarketNFT() {
   let items = [];
   const activeItems = await marketContract.connect(walletAddress).fetchActiveItems();
   for (let i = 0; i < activeItems.length; i++) {
-    let tokenMetadataURI = await tokenContract.tokenURI(activeItems[i].tokenId)
-    items.push(parseTokenURI(tokenMetadataURI));
+    const tokenMetadataURI = await tokenContract.tokenURI(activeItems[i].tokenId);
+    const id = activeItems[i].id;
+    items.push({ ...parseTokenURI(tokenMetadataURI), id })
   }
 
-  document.getElementById('display-my-NFT').innerHTML = getNFTDivItems(items);
-};
+  document.getElementById('display-market-NFT').innerHTML = getNFTDivItems(items, 'buy');
+}
 
-async function sale() {
+async function sale(tokenId) {
   const tokenContract = new ethers.Contract(tokenContractAddress, BadgeTokenABI.abi, signer);
   const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
   const listingFee = await marketContract.getListingFee();
   const auctionPrice = ethers.utils.parseUnits('1', 'ether')
-  const tokenIdSelected = ethers.BigNumber.from(document.getElementById('sale-tokenId').value);
-  await tokenContract.approve(marketAddress, tokenIdSelected);
-  await marketContract.createMarketItem(tokenContractAddress, tokenIdSelected, auctionPrice, { value: listingFee });
+  await tokenContract.approve(marketAddress, tokenId);
+  await marketContract.createMarketItem(tokenContractAddress, tokenId, auctionPrice, { value: listingFee });
 }
 
-async function buy() {
+async function buy(id) {
   const marketContract = new ethers.Contract(marketAddress, NFTMarketplaceABI.abi, signer);
-  const tokenIdSelected = ethers.BigNumber.from(document.getElementById('buy-tokenId').value);
   const auctionPrice = ethers.utils.parseUnits('1', 'ether');
-  await marketContract.createMarketSale(tokenContractAddress, tokenIdSelected, { value: auctionPrice });
+  await marketContract.createMarketSale(tokenContractAddress, id, { value: auctionPrice })
 }
 
 document.getElementById('connect-wallet').addEventListener('click', connectWallet);
