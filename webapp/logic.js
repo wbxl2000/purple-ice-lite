@@ -101,5 +101,3 @@ document.getElementById('connect-wallet').addEventListener('click', connectWalle
 document.getElementById('fresh-my-NFT').addEventListener('click', FreshMyNFT);
 document.getElementById('mint').addEventListener('click', mint);
 document.getElementById('fresh-market-NFT').addEventListener('click', FreshMarketNFT);
-document.getElementById('sale').addEventListener('click', sale);
-document.getElementById('buy').addEventListener('click', buy);
