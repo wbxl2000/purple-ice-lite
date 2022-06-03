@@ -3,24 +3,29 @@
 > How to build an NFT marketplace DApp like OpenSea?
 
 本篇教程将手把手的带你搭建一个可以实现 Connect Wallet、Mint、Sale、Buy、Display 等功能的 NFT marketplace。完成之后，相信你对于 NFT 的交易过程会有更深层次的理解，并且可以借此入门智能合约的编写与 Web3 API 的使用，也可以应用这些知识开发你自己的 DApp（如为自己发行的 NFT 制作一个 Mint 页面）。
-> 为保证良好的阅读体验，推荐你先使用一下 OpenSea 或其他主流 NFT marketplace，并且知道或者了解以下先导知识：区块链、比特币、以太坊和以太币、MetaMask、NFT、HTML、CSS、JS
 
-#### 系统架构概览
+为保证良好的阅读体验，推荐你先使用一下 OpenSea 或其他主流 NFT marketplace，并且知道或者了解以下先导知识：区块链、比特币、以太坊和以太币、MetaMask、NFT、HTML、CSS、JS
 
-好了，我们的应用终于在理论上具有了可行性，下面我绘制了一个图解，可以对比以上内容进行查看。
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/760200/1652810347640-07fcf0f4-7893-4c59-a62f-81af009a0829.png#clientId=u431eb1f3-9f8f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=408&id=R2DMN&margin=%5Bobject%20Object%5D&name=image.png&originHeight=776&originWidth=594&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89790&status=done&style=none&taskId=uca2df87f-ebde-408c-916b-8ef08f074a7&title=&width=312)![image.png](https://cdn.nlark.com/yuque/0/2022/png/760200/1654021766289-dc69cdcf-8fb8-49bf-ad13-ffa787149fc3.png#clientId=u4b6f4194-ba58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=370&id=ua36fd0b7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=1658&originalType=binary&ratio=1&rotation=0&showTitle=false&size=85412&status=done&style=none&taskId=u5d6b5677-fc12-4733-8167-fcb528eefae&title=&width=1105.3333333333333)
-那么接下来，我们将深入每一层的细节，动手实现我们的应用。
+以下内容分为五层：区块链、智能合约、Web3 API、DApp、用户与鉴权，每一层将会解释缘由与上一层的关系，行文将以渐进式解决遇到的问题的方式进行组织。
 
----
+那么，我们开始吧。
 
-#### 用作测试的区块链
-我们将要构建的 NFT marketplace 是基于区块链的，换句话说，用户的核心操作产生的数据将会被记录在区块链上，永不会被篡改。这里提到只是核心操作会被记录，是因为用户的头像、昵称等不会影响 NFT 归属权和销售动作的其他信息可以记录在传统数据库中，更为方便且减少在区块中记录的信息量，降低运行成本。本文将聚焦在核心操作。
-在本文开发过程中，我们需要对区块链的数据进行实际的修改，如果要对 ETH 的主链进行操作，那么我们每次操作都需要支出一笔不小的gas费用。如果智能合约编写失败，还会浪费区块资源，本着是学习的目的，我们可以搭建一个用作测试的区块链，不用付出真的费用也不用浪费区块资源，方便测试与debug。
+## 一、用作测试的区块链
+
+我们将要构建的 NFT marketplace 是基于区块链的，换句话说，用户的核心操作产生的数据将会被记录在区块链上，永不会被篡改。这里提到只是核心操作会被记录，是因为用户的头像、昵称等不会影响 NFT 归属权和销售动作的其他信息可以记录在传统数据库中，更为方便且减少在区块中记录的信息量，降低运行成本。本文将聚焦在核心操作，不涉及第三方存储。
+
+在本文开发过程中，我们需要对区块链的数据进行实际的修改，如果要对以太坊的主链进行操作，那么我们每次操作都需要支出一笔不小的 gas 费用。如果智能合约编写失败，还会浪费区块资源，本着是学习的目的，我们可以搭建一个用作测试的区块链，不用付出真的费用也不用浪费区块资源，方便测试与debug。
+
 使用测试区块链有两种方式，一种是使用线上的测试区块链（Testnet），如mumbai polygon，与真正的以太坊使用方法几乎相同，区别是你可以通过特定网站给自己转账，免费获得一些ETH，很方便的进行测试。
+
 第二种是搭建一个本地的区块链，使用工具如 ganache、hardhat，两种方式都会在区块链开始运行时给出一些默认账户，里面都有足够的余额可以进行测试。
+
 这里我们选择的方式是第二种，搭建一个本地的区块链，使用的工具是 hardhat 脚手架，可以直接在脚手架项目里运行一个本地区块链、编译合约、部署合约等等操作，使用方式更简单且足够我们使用了。[hardhat 文档地址](https://hardhat.org/getting-started/)
+
 此项目命名为 purple-ice-lite，之后所有操作均在此目录进行。
+
 创建名为 chain 的文件夹，用来管理区块链和智能合约。
+
 ```
 mkdir chain && cd ./chain
 yarn init -y
@@ -68,298 +73,6 @@ yarn hardhat node
 （函数功能已经补充在注释中，也推荐去看 [link](https://dev.to/yakult/tutorial-build-a-nft-marketplace-dapp-like-opensea-3ng9#task2)）记录 contract 改动的地方
 > 递增的tokenid，tokenURI返回的图片是一个base64加密的 svg
 
-```
-// contracts/NFTMarketplace.sol
-// SPDX-License-Identifier: MIT OR Apache-2.0
-//
-// adapt and edit from (Nader Dabit):
-//    https://github.com/dabit3/polygon-ethereum-nextjs-marketplace/blob/main/contracts/Market.sol
-
-pragma solidity ^0.8.3;
-
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/Address.sol";
-
-import "hardhat/console.sol";
-
-contract NFTMarketplace is ReentrancyGuard {
-    using Counters for Counters.Counter;
-    Counters.Counter private _itemCounter; //start from 1
-    Counters.Counter private _itemSoldCounter;
-
-    address payable public marketowner;
-    uint256 public listingFee = 0.025 ether;
-
-    enum State {
-        Created,
-        Release,
-        Inactive
-    }
-
-    struct MarketItem {
-        uint256 id;
-        address nftContract;
-        uint256 tokenId;
-        address payable seller;
-        address payable buyer;
-        uint256 price;
-        State state;
-    }
-
-    mapping(uint256 => MarketItem) private marketItems;
-
-    event MarketItemCreated(
-        uint256 indexed id,
-        address indexed nftContract,
-        uint256 indexed tokenId,
-        address seller,
-        address buyer,
-        uint256 price,
-        State state
-    );
-
-    event MarketItemSold(
-        uint256 indexed id,
-        address indexed nftContract,
-        uint256 indexed tokenId,
-        address seller,
-        address buyer,
-        uint256 price,
-        State state
-    );
-
-    constructor() {
-        marketowner = payable(msg.sender);
-    }
-
-    /**
-     * @dev Returns the listing fee of the marketplace
-     */
-    function getListingFee() public view returns (uint256) {
-        return listingFee;
-    }
-
-    /**
-     * @dev create a MarketItem for NFT sale on the marketplace.
-     *
-     * List an NFT.
-     */
-    function createMarketItem(
-        address nftContract,
-        uint256 tokenId,
-        uint256 price
-    ) public payable nonReentrant {
-        require(price > 0, "Price must be at least 1 wei");
-        require(msg.value == listingFee, "Fee must be equal to listing fee");
-
-        _itemCounter.increment();
-        uint256 id = _itemCounter.current();
-
-        marketItems[id] = MarketItem(
-            id,
-            nftContract,
-            tokenId,
-            payable(msg.sender),
-            payable(address(0)),
-            price,
-            State.Created
-        );
-
-        require(
-            IERC721(nftContract).getApproved(tokenId) == address(this),
-            "NFT must be approved to market"
-        );
-
-        // change to approve mechanism from the original direct transfer to market
-        // IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
-
-        emit MarketItemCreated(
-            id,
-            nftContract,
-            tokenId,
-            msg.sender,
-            address(0),
-            price,
-            State.Created
-        );
-    }
-
-    /**
-     * @dev delete a MarketItem from the marketplace.
-     *
-     * de-List an NFT.
-     *
-     * todo ERC721.approve can't work properly!! comment out
-     */
-    function deleteMarketItem(uint256 itemId) public nonReentrant {
-        require(itemId <= _itemCounter.current(), "id must <= item count");
-        require(
-            marketItems[itemId].state == State.Created,
-            "item must be on market"
-        );
-        MarketItem storage item = marketItems[itemId];
-
-        require(
-            IERC721(item.nftContract).ownerOf(item.tokenId) == msg.sender,
-            "must be the owner"
-        );
-        require(
-            IERC721(item.nftContract).getApproved(item.tokenId) ==
-                address(this),
-            "NFT must be approved to market"
-        );
-
-        item.state = State.Inactive;
-
-        emit MarketItemSold(
-            itemId,
-            item.nftContract,
-            item.tokenId,
-            item.seller,
-            address(0),
-            0,
-            State.Inactive
-        );
-    }
-
-    /**
-     * @dev (buyer) buy a MarketItem from the marketplace.
-     * Transfers ownership of the item, as well as funds
-     * NFT:         seller    -> buyer
-     * value:       buyer     -> seller
-     * listingFee:  contract  -> marketowner
-     */
-    function createMarketSale(address nftContract, uint256 id)
-        public
-        payable
-        nonReentrant
-    {
-        MarketItem storage item = marketItems[id]; //should use storge!!!!
-        uint256 price = item.price;
-        uint256 tokenId = item.tokenId;
-
-        require(msg.value == price, "Please submit the asking price");
-        require(
-            IERC721(nftContract).getApproved(tokenId) == address(this),
-            "NFT must be approved to market"
-        );
-
-        item.buyer = payable(msg.sender);
-        item.state = State.Release;
-        _itemSoldCounter.increment();
-
-        IERC721(nftContract).transferFrom(item.seller, msg.sender, tokenId);
-        payable(marketowner).transfer(listingFee);
-        item.seller.transfer(msg.value);
-
-        emit MarketItemSold(
-            id,
-            nftContract,
-            tokenId,
-            item.seller,
-            msg.sender,
-            price,
-            State.Release
-        );
-    }
-
-    /**
-     * @dev Returns all unsold market items
-     * condition:
-     *  1) state == Created
-     *  2) buyer = 0x0
-     *  3) still have approve
-     */
-    function fetchActiveItems() public view returns (MarketItem[] memory) {
-        return fetchHepler(FetchOperator.ActiveItems);
-    }
-
-    /**
-     * @dev Returns only market items a user has purchased
-     * todo pagination
-     */
-    function fetchMyPurchasedItems() public view returns (MarketItem[] memory) {
-        return fetchHepler(FetchOperator.MyPurchasedItems);
-    }
-
-    /**
-     * @dev Returns only market items a user has created
-     * todo pagination
-     */
-    function fetchMyCreatedItems() public view returns (MarketItem[] memory) {
-        return fetchHepler(FetchOperator.MyCreatedItems);
-    }
-
-    enum FetchOperator {
-        ActiveItems,
-        MyPurchasedItems,
-        MyCreatedItems
-    }
-
-    /**
-     * @dev fetch helper
-     * todo pagination
-     */
-    function fetchHepler(FetchOperator _op)
-        private
-        view
-        returns (MarketItem[] memory)
-    {
-        uint256 total = _itemCounter.current();
-
-        uint256 itemCount = 0;
-        for (uint256 i = 1; i <= total; i++) {
-            if (isCondition(marketItems[i], _op)) {
-                itemCount++;
-            }
-        }
-
-        uint256 index = 0;
-        MarketItem[] memory items = new MarketItem[](itemCount);
-        for (uint256 i = 1; i <= total; i++) {
-            if (isCondition(marketItems[i], _op)) {
-                items[index] = marketItems[i];
-                index++;
-            }
-        }
-        return items;
-    }
-
-    /**
-     * @dev helper to build condition
-     *
-     * todo should reduce duplicate contract call here
-     * (IERC721(item.nftContract).getApproved(item.tokenId) called in two loop
-     */
-    function isCondition(MarketItem memory item, FetchOperator _op)
-        private
-        view
-        returns (bool)
-    {
-        if (_op == FetchOperator.MyCreatedItems) {
-            return
-                (item.seller == msg.sender && item.state != State.Inactive)
-                    ? true
-                    : false;
-        } else if (_op == FetchOperator.MyPurchasedItems) {
-            return (item.buyer == msg.sender) ? true : false;
-        } else if (_op == FetchOperator.ActiveItems) {
-            return
-                (item.buyer == address(0) &&
-                    item.state == State.Created &&
-                    (IERC721(item.nftContract).getApproved(item.tokenId) ==
-                        address(this)))
-                    ? true
-                    : false;
-        } else {
-            return false;
-        }
-    }
-}
-
-```
 运行 `yarn hardhat compile`，如果不报错，则成功编译合约。
 接下来我们将为此合约编写单元测试，保证其能够正常运行。我们需要一些单元测试才能保证我们的合约和应用能够按照预期进行。
 前面提到我们可以通过 hardhat 来操纵，hardhat 有 ether 的插件，可以很方便的帮助我们书写 js 版本的单元测试。这里主要测试一些行为，也是借鉴，里面还提到了系统测试，那么我们也来进行，完善这个NFT marketplace 项目。
