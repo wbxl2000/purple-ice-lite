@@ -53,4 +53,8 @@ purple-ice-lite 是一个运行在本地区块链上的迷你的 NFT 交易市�
 6. 进入 `webapp` 目录 `cd ../webapp`，并且运行 anywhere 或者其他 web 静态服务，如 Go Live
     > 快速运行 anywhere 的命令为：`yarn add anywhere && yarn anywhere`
 
-7. 在浏览器中访问 purple-ice-lite，连接钱包后，进行 Mint 初始 NFT，然后推荐开启两个浏览器模拟 Sale 或者 Buy。
+7. 在浏览器中访问 purple-ice-lite，连接钱包后，进行 Mint 初始 NFT，然后推荐开启两个浏览器模拟 Sale 或者 Buy
+
+## License
+
+This project is licensed under the MIT license.
