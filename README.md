@@ -30,11 +30,11 @@ purple-ice-lite 是一个运行在本地区块链上的迷你的 NFT 交易市�
 ├── chain                   -- 包含 本地区块链(hardhat-CLI)、智能合约(代码、测试、部署)
 ├── webapp                  -- NFT Marketplace 的前端应用(DApp)
 ├── README.md  
-├── tutorial.md  
-└── README-en_US.md 
+└── tutorial.md 
 ```
 
 步骤：
+
 1. 克隆本仓库到本地 `git clone https://github.com/wbxl2000/purple-ice-lite`
 2. 进入项目中的 `chain` 目录，并安装依赖 `cd .\purple-ice-lite\chain\ && yarn`
 3. 运行本地区块链 `yarn hardhat node`，运行成功会输出测试账户的地址和私钥
