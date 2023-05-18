@@ -1,13 +1,30 @@
 # purple-ice-lite
 
 <div style="display: flex; margin: 10px 0;">
-<img src="https://raw.githubusercontent.com/wbxl2000/PicGoImages/main/202305180938175.svg?token=GHSAT0AAAAAACCLDCI3J2M3CJZO23DRGDSMZDFQOVQ" style="width: 16px; margin-right: 5px;">
+<svg style="width: 18px; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M4 5h7"></path>
+   <path d="M9 3v2c0 4.418 -2.239 8 -5 8"></path>
+   <path d="M5 9c0 2.144 2.952 3.908 6.7 4"></path>
+   <path d="M12 20l4 -9l4 9"></path>
+   <path d="M19.1 18h-6.2"></path>
+</svg>
 <b> 简体中文 </b>
 <span style="margin: 0 5px;"> | </span> 
 <a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/README.md"> English</a> 
 </div>
 
-[演示视频](https://www.bilibili.com/video/BV1uU4y117U1/)
+<div style="display: flex; margin: 10px 0;">
+<svg style="width: 18px; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+   <path d="M8 3l2 3"></path>
+   <path d="M16 3l-2 3"></path>
+   <path d="M9 13v-2"></path>
+   <path d="M15 11v2"></path>
+</svg>
+<a href="https://www.bilibili.com/video/BV1uU4y117U1/"> 演示视频</a> 
+</div>
 
 ## Introduction
 
@@ -62,7 +79,7 @@ purple-ice-lite 是一个运行在本地区块链上的迷你的 NFT 交易市�
 
 ## How to develop
 
-如果想要深一步了解，可以查看 [为本项目编写的手把手教程](./tutorial.md) 中的内容。
+如果想要深一步了解，可以查看 [为本项目编写的手把手教程](./tutorial.zh.md) 中的内容。
 
 ## License
 
