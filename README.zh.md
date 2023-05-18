@@ -1,28 +1,13 @@
 # purple-ice-lite
 
 <div style="display: flex; margin: 10px 0;">
-<svg style="width: 18px; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M4 5h7"></path>
-   <path d="M9 3v2c0 4.418 -2.239 8 -5 8"></path>
-   <path d="M5 9c0 2.144 2.952 3.908 6.7 4"></path>
-   <path d="M12 20l4 -9l4 9"></path>
-   <path d="M19.1 18h-6.2"></path>
-</svg>
+<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae"> </img>
 <b> 简体中文 </b>
 <span style="margin: 0 5px;"> | </span> 
 <a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/README.md"> English</a> 
 </div>
-
 <div style="display: flex; margin: 10px 0;">
-<svg style="width: 18px; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
-   <path d="M8 3l2 3"></path>
-   <path d="M16 3l-2 3"></path>
-   <path d="M9 13v-2"></path>
-   <path d="M15 11v2"></path>
-</svg>
+<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/e60f5613-cf19-4ad6-bca7-f70ca7f49805"> </img>
 <a href="https://www.bilibili.com/video/BV1uU4y117U1/"> 演示视频</a> 
 </div>
 

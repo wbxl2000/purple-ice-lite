@@ -1,15 +1,7 @@
 # 学习 Web3 编程，或许可以从建造一个简单的 NFT Marketplace 开始
 
 <div style="display: flex; margin: 10px 0;">
-
-<svg style="width: 18px; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M4 5h7"></path>
-   <path d="M9 3v2c0 4.418 -2.239 8 -5 8"></path>
-   <path d="M5 9c0 2.144 2.952 3.908 6.7 4"></path>
-   <path d="M12 20l4 -9l4 9"></path>
-   <path d="M19.1 18h-6.2"></path>
-</svg>
+<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae"> </img>
 <b> 简体中文 </b>
 <span style="margin: 0 5px;"> | </span> 
 <a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/tutorial.md"> English</a> 
