@@ -1,6 +1,11 @@
 # purple-ice-lite
 
-[English Version](./README.md)
+<div style="display: flex; margin: 10px 0;">
+<img src="https://raw.githubusercontent.com/wbxl2000/PicGoImages/main/202305180938175.svg?token=GHSAT0AAAAAACCLDCI3J2M3CJZO23DRGDSMZDFQOVQ" style="width: 16px; margin-right: 5px;">
+<b> 简体中文 </b>
+<span style="margin: 0 5px;"> | </span> 
+<a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/README.md"> English</a> 
+</div>
 
 [演示视频](https://www.bilibili.com/video/BV1uU4y117U1/)
 
