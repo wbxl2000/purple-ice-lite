@@ -1,7 +1,7 @@
 # purple-ice-lite
 
 <div style="display: flex; margin: 10px 0;">
-<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae"> </img>
+<img style="width: 18px; vertical-align: middle; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae">
 <b> English </b>
 <span style="margin: 0 5px;"> | </span> 
 <a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/README.zh.md"> 简体中文</a> 
