@@ -1,13 +1,13 @@
 # purple-ice-lite
 
-<div style="display: flex; margin: 10px 0;">
-<img style="width: 18px; vertical-align: middle; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae">
+<div style="display: flex; margin: 10px 0; justify-content: center; align-items: center">
+<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae">
 <b> English </b>
 <span style="margin: 0 5px;"> | </span> 
 <a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/README.zh.md"> 简体中文</a> 
 </div>
 
-<div style="display: flex; margin: 10px 0;">
+<div style="display: flex; margin: 10px 0; justify-content: center; align-items: center">
 <img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/e60f5613-cf19-4ad6-bca7-f70ca7f49805"> </img>
 <a href="https://www.bilibili.com/video/BV1uU4y117U1/"> Demo Video</a> 
 </div>
