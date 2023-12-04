@@ -1,15 +1,21 @@
-# purple-ice-lite
+<p align="center">
+<img src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/7c445e60-5762-4f92-bcd3-574786a5afb9" height="300">
+</p>
 
-<div style="display: flex; margin: 10px 0;">
-<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/34ef79cc-dc17-4d61-a518-c1ba3cb45fae"> </img>
-<b> 简体中文 </b>
-<span style="margin: 0 5px;"> | </span> 
+<h1 align="center">
+purple-ice-lite
+</h1>
+<p align="center">
+一个运行在本地区块链上的迷你 NFT 交易市场
+<p>
+
+<p align="center">
+<a href="https://www.bilibili.com/video/BV1uU4y117U1/"> Demo Video</a>
+</p>
+<p align="center">
 <a href="https://github.com/wbxl2000/purple-ice-lite/blob/main/README.md"> English</a> 
-</div>
-<div style="display: flex; margin: 10px 0;">
-<img style="width: 18px; margin-right: 5px;" src="https://github.com/wbxl2000/purple-ice-lite/assets/57169560/e60f5613-cf19-4ad6-bca7-f70ca7f49805"> </img>
-<a href="https://www.bilibili.com/video/BV1uU4y117U1/"> 演示视频</a> 
-</div>
+</p>
+
 
 ## Introduction
 
